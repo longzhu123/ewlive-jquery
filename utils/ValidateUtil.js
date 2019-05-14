@@ -5,7 +5,7 @@ let ValidateUtil = {
      */
    commonValidate:function (ele) {
         $(ele).bootstrapValidator('validate');
-        let isVali = $('.add-form').data('bootstrapValidator').isValid();
+        let isVali = $(ele).data('bootstrapValidator').isValid();
         return isVali;
    }
 };
