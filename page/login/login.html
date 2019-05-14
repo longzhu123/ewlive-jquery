@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>优智直播-登录</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--Plugin-CSS-->
+    <link rel="stylesheet" href="../../plugins/toastr/css/toastr.min.css">
+
+    <link rel="stylesheet" href="login.css">
+
+    <!-- jQuery-->
+    <script src="../../plugins/jquery/jquery-2.1.1.js"></script>
+    <script src="../../plugins/toastr/js/toastr.min.js"></script>
+
+    <!-- Utils-->
+    <script src="../../utils/ToastrUtil.js"></script>
+    <script src="../../utils/CommonUtil.js"></script>
+
+    <!-- Constants -->
+    <script src="../../constants/index.js"></script>
+    <script src="login.js"></script>
+</head>
+<body>
+<h1>优智直播后台管理</h1>
+<div class="login-form">
+    <div class="close"></div>
+    <div class="head-info">
+        <label class="lbl-1"> </label>
+        <label class="lbl-2"> </label>
+        <label class="lbl-3"> </label>
+    </div>
+    <div class="clear"></div>
+    <div class="avtar">
+        <img src="../../img/login/avtar.png"/>
+    </div>
+    <form>
+        <input type="text" id="username" class="text"  placeholder="请输入用户名">
+        <input type="password" id="password" placeholder="请输入密码">
+    </form>
+    <div class="signin">
+        <button id="login-btn">登录</button>
+    </div>
+</div>
+</body>
+</html>
