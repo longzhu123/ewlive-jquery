@@ -9806,8 +9806,14 @@ body.md-skin {
 
 .searchForm .form-group {
     margin-right: 30px;
+    margin-left: 0px;
+    float: left;
+    width: 160px;;
 }
 
 .input-group-addon {
     border-radius: 3px;
+}
+.opareteBtn{
+    margin-bottom: 10px;
 }
