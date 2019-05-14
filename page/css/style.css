@@ -9791,11 +9791,23 @@ body.md-skin {
     content: "*";
 }
 
-.has-error .help-block{
+.has-error .help-block {
     color: red !important;
     font-weight: bold;
 }
 
-.control-label-val{
+.control-label-val {
     text-align: left !important;
+}
+
+.searchForm {
+    display: flex;
+}
+
+.searchForm .form-group {
+    margin-right: 30px;
+}
+
+.input-group-addon {
+    border-radius: 3px;
 }
