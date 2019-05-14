@@ -266,4 +266,17 @@ function bindModalEvent() {
     $("#updateModal").on('hide.bs.modal', function () {
         $(".update-form").data('bootstrapValidator').resetForm();
     });
+
+    //查看详情模态框open事件
+    $("#viewModal").on('show.bs.modal', function () {
+        let option = {
+            url: Constants.SERVER_URL + "/sysUser/getSysUserById",
+            data: {id:currentOperRowObj.id},
+        };
+        CommonUtil.commonAjax(option,function (response) {
+            let {data} = response;
+            debugger;
+            FormUtil.initViewDetail('.view-form',data)
+        });
+    });
 }

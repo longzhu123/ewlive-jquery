@@ -25,5 +25,14 @@ let FormUtil = {
                 }
             }
         });
-    }
+    },
+    initViewDetail: function (ele, json) {
+        let form = $(ele);
+        $.each(json, function (key, value) {
+            let formField = form.find("[name='" + key + "']");
+            if ($.type(formField[0]) !== "undefined") {
+                formField.html(value);
+            }
+        });
+    },
 };
