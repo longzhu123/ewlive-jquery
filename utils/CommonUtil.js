@@ -6,7 +6,6 @@ let CommonUtil = {
         }
         return false;
     },
-    //
     /**
      * 公用的Ajax
      * @param option
@@ -25,8 +24,8 @@ let CommonUtil = {
                 let {resultCode, resultMsg} = response;
                 if (resultCode === Constants.REPONSE_ERROR_CODE) {
                     AlertUtil.error({
-                        title:'错误提示',
-                        content:resultMsg
+                        title: '错误提示',
+                        content: resultMsg
                     })
                 } else if (resultCode === Constants.RESPONSE_SUCCESS_CODE) {
                     callback(response);
@@ -36,6 +35,28 @@ let CommonUtil = {
                 ToastrUtil.error("网络异常", "错误提示");
             }
         })
+    },
+    /**
+     * 公用的保存Ajax
+     * @param option
+     *        options.url:请求Url
+     *        options.data:请求数据
+     * @param ele       隐藏模态框的DOM
+     * @param tableEle  刷新表格的DOM
+     */
+    commonSaveAjax: function (option,ele,tableEle) {
+        this.commonAjax(option, function (response) {
+            AlertUtil.success({
+                title: '操作提示',
+                content: '保存成功'
+            });
+            if(ele){
+                $(ele).modal('hide');
+            }
+            if(tableEle){
+                $(tableEle).bootstrapTable('refresh');
+            }
+        });
     },
     //序列化表单对象为json
     serializeObject: function (ele) {

@@ -5,7 +5,7 @@ $(function () {
     batchDeleteInit();
     bindOperateClickEvent();
     bindFormValidate();
-
+    bindModalEvent();
 });
 
 
@@ -14,6 +14,7 @@ $(function () {
  */
 function initDataTable() {
 
+    //操作列按钮事件bind
     window.operateEvents = {
         'click .viewBtn': function (e, value, row, index) {
             $("#viewModal").modal();
@@ -113,6 +114,8 @@ function batchDeleteInit() {
 
 //绑定业务操作按钮click事件
 function bindOperateClickEvent() {
+
+    //添加保存click
     $(".add-save-btn").click(function () {
         let isValidator = ValidateUtil.commonValidate(".add-form");
         if(isValidator){
@@ -121,9 +124,8 @@ function bindOperateClickEvent() {
                 url:Constants.SERVER_URL+"/sysUser/addSysUser",
                 data:json,
             };
-            CommonUtil.commonAjax(option,function (response) {
-                console.log(response);
-            })
+            CommonUtil.commonSaveAjax(option,"#addModal","#dataTable");
+
         }
     })
 }
@@ -165,4 +167,13 @@ function bindFormValidate() {
 
         }
     });
+}
+
+
+//绑定所有的模态框event
+function bindModalEvent() {
+    $("#addModal").on('hide.bs.modal', function () {
+        $(".add-form")[0].reset();
+        $(".add-form").data('bootstrapValidator').resetForm();
+    })
 }
