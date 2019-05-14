@@ -4407,7 +4407,7 @@ code {
 .ibox-content {
     background-color: #ffffff;
     color: inherit;
-    padding: 15px 20px 20px 20px;
+    padding: 0px 20px 20px 20px;
     border-color: #e7eaec;
     border-image: none;
     border-style: solid solid none;
@@ -9801,7 +9801,8 @@ body.md-skin {
 }
 
 .searchForm {
-    display: flex;
+    margin-left: 22px;
+    margin-top: 10px;
 }
 
 .searchForm .form-group {
@@ -9816,4 +9817,8 @@ body.md-skin {
 }
 .opareteBtn{
     margin-bottom: 10px;
+}
+
+#resetBtn{
+    margin-left: 10px;
 }

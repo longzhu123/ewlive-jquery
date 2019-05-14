@@ -93,9 +93,9 @@ function initDataTable() {
 //格式化操作列
 function operateFormatter(value, row, index) {
     return [
-        `<button type="button" class="btn btn-xs btn-outline btn-primary viewBtn">查看</button>`,
-        `<button type="button" class="btn btn-xs btn-outline btn-primary updateBtn">修改</button>`
-    ];
+        '<button type="button" class="btn btn-xs btn-outline btn-primary viewBtn">查看</button>',
+        '<button type="button" class="btn btn-xs btn-outline btn-primary updateBtn">修改</button>'
+    ].join("&nbsp;");
 }
 
 
