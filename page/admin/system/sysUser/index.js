@@ -104,9 +104,25 @@ function addModalInit() {
 //批量删除初始化
 function batchDeleteInit() {
     $("#batchDelete").click(function () {
+
+        // 获取当前ids
+        let ids = $.map($("#dataTable").bootstrapTable('getSelections'), function (row) {
+            return row.id;
+        });
+        if (!ids.length) {
+            AlertUtil.error({
+                title: '错误提示',
+                content: '请选择需要删除的记录'
+            });
+            return;
+        }
         AlertUtil.confirm({
             yes: function (index, layer) {
-                alert("批量删除成功")
+                let option = {
+                    url: Constants.SERVER_URL + "/sysUser/deleteBatchSysUserByIds",
+                    data: {'ids':ids}
+                };
+                CommonUtil.commonSaveAjax(option, undefined, "#dataTable");
             }
         });
     });
@@ -118,13 +134,13 @@ function bindOperateClickEvent() {
     //添加保存click
     $(".add-save-btn").click(function () {
         let isValidator = ValidateUtil.commonValidate(".add-form");
-        if(isValidator){
+        if (isValidator) {
             let json = CommonUtil.serializeObject(".add-form");
             let option = {
-                url:Constants.SERVER_URL+"/sysUser/addSysUser",
-                data:json,
+                url: Constants.SERVER_URL + "/sysUser/addSysUser",
+                data: json,
             };
-            CommonUtil.commonSaveAjax(option,"#addModal","#dataTable");
+            CommonUtil.commonSaveAjax(option, "#addModal", "#dataTable");
 
         }
     })
