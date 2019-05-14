@@ -9795,3 +9795,7 @@ body.md-skin {
     color: red !important;
     font-weight: bold;
 }
+
+.control-label-val{
+    text-align: left !important;
+}
