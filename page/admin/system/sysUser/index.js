@@ -1,3 +1,6 @@
+
+//当前表格操作的row对象
+let currentOperRowObj = null;
 $(function () {
     ComponentUtil.loadSystemCommonHtml();
     initDataTable();
@@ -17,9 +20,11 @@ function initDataTable() {
     //操作列按钮事件bind
     window.operateEvents = {
         'click .viewBtn': function (e, value, row, index) {
+            currentOperRowObj = row;
             $("#viewModal").modal();
         },
         'click .updateBtn': function (e, value, row, index) {
+            currentOperRowObj = row;
             $("#updateModal").modal();
         }
     };
@@ -143,6 +148,21 @@ function bindOperateClickEvent() {
             CommonUtil.commonSaveAjax(option, "#addModal", "#dataTable");
 
         }
+    });
+
+    //修改保存click
+    $(".update-save-btn").click(function () {
+        debugger;
+        let isValidator = ValidateUtil.commonValidate(".update-form");
+        if (isValidator) {
+            let json = CommonUtil.serializeObject(".update-form");
+            json.id=currentOperRowObj.id;
+            let option = {
+                url: Constants.SERVER_URL + "/sysUser/updateSysUserById",
+                data: json,
+            };
+            CommonUtil.commonSaveAjax(option, "#updateModal", "#dataTable");
+        }
     })
 }
 
@@ -183,13 +203,67 @@ function bindFormValidate() {
 
         }
     });
+
+    //修改表单
+    $(".update-form").bootstrapValidator({
+        fields: {
+            email: {
+                validators: {
+                    notEmpty: {
+                        message: '请输入邮箱！'
+                    }
+                }
+            },
+            password: {
+                validators: {
+                    notEmpty: {
+                        message: '请输入密码！'
+                    }
+                }
+            },
+            nickName: {
+                validators: {
+                    notEmpty: {
+                        message: '请输入昵称！'
+                    }
+                }
+            },
+            ewCoin: {
+                validators: {
+                    notEmpty: {
+                        message: '请输入优币！'
+                    }
+                }
+            }
+
+        }
+    });
 }
 
 
 //绑定所有的模态框event
 function bindModalEvent() {
+
+    //添加模态框close事件
     $("#addModal").on('hide.bs.modal', function () {
         $(".add-form")[0].reset();
         $(".add-form").data('bootstrapValidator').resetForm();
-    })
+    });
+
+    //修改模态框open事件
+    $("#updateModal").on('show.bs.modal', function () {
+        let option = {
+            url: Constants.SERVER_URL + "/sysUser/getSysUserById",
+            data: {id:currentOperRowObj.id},
+        };
+        CommonUtil.commonAjax(option,function (response) {
+            let {data} = response;
+            FormUtil.initForm('.update-form',data)
+        });
+    });
+
+    //修改模态框open事件
+    $("#updateModal").on('hide.bs.modal', function () {
+        $(".update-form").data('bootstrapValidator').resetForm();
+    });
 }
