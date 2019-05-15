@@ -1,4 +1,3 @@
-
 //当前表格操作的row对象
 let currentOperRowObj = null;
 $(function () {
@@ -9,6 +8,7 @@ $(function () {
     bindOperateClickEvent();
     bindFormValidate();
     bindModalEvent();
+    bindSearchEvent();
 });
 
 
@@ -125,7 +125,7 @@ function batchDeleteInit() {
             yes: function (index, layer) {
                 let option = {
                     url: Constants.SERVER_URL + "/sysUser/deleteBatchSysUserByIds",
-                    data: {'ids':ids}
+                    data: {'ids': ids}
                 };
                 CommonUtil.commonSaveAjax(option, undefined, "#dataTable");
             }
@@ -156,7 +156,7 @@ function bindOperateClickEvent() {
         let isValidator = ValidateUtil.commonValidate(".update-form");
         if (isValidator) {
             let json = CommonUtil.serializeObject(".update-form");
-            json.id=currentOperRowObj.id;
+            json.id = currentOperRowObj.id;
             let option = {
                 url: Constants.SERVER_URL + "/sysUser/updateSysUserById",
                 data: json,
@@ -254,11 +254,11 @@ function bindModalEvent() {
     $("#updateModal").on('show.bs.modal', function () {
         let option = {
             url: Constants.SERVER_URL + "/sysUser/getSysUserById",
-            data: {id:currentOperRowObj.id},
+            data: {id: currentOperRowObj.id},
         };
-        CommonUtil.commonAjax(option,function (response) {
+        CommonUtil.commonAjax(option, function (response) {
             let {data} = response;
-            FormUtil.initForm('.update-form',data)
+            FormUtil.initForm('.update-form', data)
         });
     });
 
@@ -271,12 +271,37 @@ function bindModalEvent() {
     $("#viewModal").on('show.bs.modal', function () {
         let option = {
             url: Constants.SERVER_URL + "/sysUser/getSysUserById",
-            data: {id:currentOperRowObj.id},
+            data: {id: currentOperRowObj.id},
         };
-        CommonUtil.commonAjax(option,function (response) {
+        CommonUtil.commonAjax(option, function (response) {
             let {data} = response;
-            debugger;
-            FormUtil.initViewDetail('.view-form',data)
+            FormUtil.initViewDetail('.view-form', data)
         });
+    });
+}
+
+//绑定搜索表单对应的事件
+function bindSearchEvent() {
+
+    //搜索button的click
+    $("#searchBtn").click(function () {
+        $('#dataTable').bootstrapTable("refreshOptions", {
+            queryParams : function(params) {
+                let searchJson = CommonUtil.serializeObject(".searchForm");
+                let searchParams = Object.assign({
+                    size: params.limit,
+                    current: params.offset / params.limit + 1,
+                    token: localStorage.getItem('token')
+                },searchJson);
+                return JSON.stringify(searchParams);
+            }
+        });
+    });
+
+
+    //重置搜索表单的click
+    $("#resetBtn").click(function () {
+        $(".searchForm")[0].reset();
+        $("#dataTable").bootstrapTable('refresh');
     });
 }
