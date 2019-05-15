@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>优智直播-全面的crud</title>
+    <link href="../../../../plugins/bootstrap/bootstrap-3.3.7/css/bootstrap.css" rel="stylesheet">
+    <link href="../../../../plugins/bootstrap/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
+    <link href="../../../../plugins/bootstrap/bootstrap-validator/css/bootstrapValidator.css" rel="stylesheet">
+    <link href="../../../../font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="../../../../plugins/animate/animate.css" rel="stylesheet">
+    <link href="../../../../plugins/layui/css/layui-v2.2.5.css" rel="stylesheet">
+    <link href="../../../css/style.css" rel="stylesheet">
+</head>
+<body>
+<div id="wrapper">
+
+    <!-- 左侧菜单-->
+    <div class="wrapper-nav">
+    </div>
+
+    <div id="page-wrapper" class="gray-bg dashbard-1">
+
+        <!--头部导航 -->
+        <div class="header-nav">
+            <script type="text/html" src="../../../common/admin/head.html"></script>
+        </div>
+
+        <!-- MainContent -->
+        <div id="main-content">
+            <div class="row  border-bottom white-bg dashboard-header">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox-operate">
+                        </div>
+
+                        <form class="form-horizontal searchForm">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon">邮箱</span>
+                                    <input class="form-control" name="email" type="text">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon">昵称</span>
+                                    <input class="form-control" name="nickName" type="text">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <button type="button" class="btn btn-outline btn-primary" id="searchBtn">
+                                        <i class="fa fa-search"></i>
+                                        <span>搜索</span>
+                                    </button>
+                                    <button type="button" class="btn btn-outline btn-primary" id="resetBtn">
+                                        <i class="fa fa-refresh"></i>
+                                        <span>重置</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div class="ibox-content">
+                            <div class="opareteBtn">
+                                <button type="button" class="btn btn-outline btn-primary" id="addBtn">
+                                    <i class="fa fa-plus"></i>
+                                    <span>添加</span>
+                                </button>
+                                <button type="button" class="btn btn-outline btn-primary" id="batchDelete">
+                                    <i class="fa fa-trash-o"></i>
+                                    <span>批量删除</span>
+                                </button>
+                            </div>
+                            <!--数据表格-->
+                            <table id="dataTable"></table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <script type="text/html" src="../../../common/admin/footer.html"></script>
+        </div>
+    </div>
+</div>
+
+<div class="modal inmodal fade" id="addModal">
+    <div class="modal-dialog">
+        <div class="modal-content animated fadeIn">
+            <div class="modal-header">
+                <span>添加</span>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal my-form add-form">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label required">邮箱:</label>
+                        <div class="col-sm-8">
+                            <input class="form-control email" type="text" name="email" maxlength="50"
+                                   placeholder="请输入邮箱"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label required">密码:</label>
+                        <div class="col-sm-8">
+                            <input class="form-control password" name="password" type="text" maxlength="50"
+                                   placeholder="请输入密码"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label required">昵称:</label>
+                        <div class="col-sm-8">
+                            <input class="form-control nickName" name="nickName" type="text" maxlength="50"
+                                   placeholder="请输入昵称"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label required">优币:</label>
+                        <div class="col-sm-8">
+                            <input class="form-control ewCoin" name="ewCoin" type="number" maxlength="50"
+                                   placeholder="请输入优币"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary add-save-btn">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal inmodal fade" id="updateModal">
+    <div class="modal-dialog">
+        <div class="modal-content animated fadeIn">
+            <div class="modal-header">
+                <span>修改</span>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal my-form update-form">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label required">邮箱:</label>
+                        <div class="col-sm-8">
+                            <input class="form-control email" type="text" name="email" maxlength="50"
+                                   placeholder="请输入邮箱"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label required">密码:</label>
+                        <div class="col-sm-8">
+                            <input class="form-control password" name="password" type="text" maxlength="50"
+                                   placeholder="请输入密码"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label required">昵称:</label>
+                        <div class="col-sm-8">
+                            <input class="form-control nickName" name="nickName" type="text" maxlength="50"
+                                   placeholder="请输入昵称"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label required">优币:</label>
+                        <div class="col-sm-8">
+                            <input class="form-control ewCoin" name="ewCoin" type="number" maxlength="50"
+                                   placeholder="请输入优币"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary update-save-btn">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal inmodal fade" id="viewModal">
+    <div class="modal-dialog">
+        <div class="modal-content animated fadeIn">
+            <div class="modal-header">
+                <span>查看详情</span>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal my-form view-form">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">邮箱:</label>
+                        <label class="col-sm-8 control-label control-label-val" name="email"></label>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">密码:</label>
+                        <label class="col-sm-8 control-label control-label-val" name="password"></label>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">昵称:</label>
+                        <label class="col-sm-8 control-label control-label-val" name="nickName"></label>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">优币:</label>
+                        <label class="col-sm-8 control-label control-label-val" name="ewCoin"></label>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Plugins -->
+<script src="../../../../plugins/jquery/jquery-2.1.1.js"></script>
+<script src="../../../../plugins/bootstrap/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+<script src="../../../../plugins/bootstrap/bootstrap-validator/js/bootstrapValidator.js"></script>
+<script src="../../../../plugins/bootstrap/bootstrap-table/bootstrap-table.min.js"></script>
+<script src="../../../../plugins/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+<script src="../../../../plugins/layui/layui-v2.2.5.js"></script>
+
+<!-- Custom -->
+<script src="../../../../constants/index.js"></script>
+<script src="../../../../utils/ComponentUtil.js"></script>
+<script src="../../../../utils/AlertUtil.js"></script>
+<script src="../../../../utils/AuthUtil.js"></script>
+<script src="../../../../utils/ValidateUtil.js"></script>
+<script src="../../../../utils/CommonUtil.js"></script>
+<script src="../../../../utils/FormUtil.js"></script>
+<script src="index.js"></script>
+
+<script src="../../../common/js/init.js"></script>
+
+
+<script src="../../../../plugins/custom/customMenu/jquery.metisMenu.js"></script>
+<script src="../../../../plugins/custom/customMenu/jquery.slimscroll.min.js"></script>
+<script src="../../../../plugins/custom/customMenu/pace.min.js"></script>
+
+
+</body>
+</html>
