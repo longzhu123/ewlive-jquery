@@ -155,7 +155,6 @@ function bindOperateClickEvent() {
 
     //修改保存click
     $(".update-save-btn").click(function () {
-        debugger;
         let isValidator = ValidateUtil.commonValidate(".update-form");
         if (isValidator) {
             let json = CommonUtil.serializeObject(".update-form");
@@ -171,9 +170,9 @@ function bindOperateClickEvent() {
 
 //初始化表单验证
 function bindFormValidate() {
-
     //添加表单
     $(".add-form").bootstrapValidator({
+        excluded:[":disabled"],
         fields: {
             name: {
                 validators: {
@@ -383,7 +382,7 @@ function addModalInit() {
     layui.use('laydate', function() {
         let laydate = layui.laydate;
         laydate.render({
-            elem: '#addPlayTime',
+            elem: '.add-play-time',
             value:new Date()
         });
     });
