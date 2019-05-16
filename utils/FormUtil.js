@@ -17,7 +17,7 @@ let FormUtil = {
                         formField.val(value);
                     }
                 } else if (fieldTagName == "select") {
-                    formField.val(value);
+                    formField.val(value).trigger("chosen:updated");
                 } else if (fieldTagName == "textarea") {
                     formField.val(value);
                 } else {

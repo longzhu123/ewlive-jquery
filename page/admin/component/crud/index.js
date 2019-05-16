@@ -33,7 +33,7 @@ function initDataTable() {
     };
 
     $('#dataTable').bootstrapTable({
-        url: Constants.SERVER_URL + '/sysUser/likeSearchSysUserByPage',
+        url: Constants.SERVER_URL + '/sysTest/likeSearchSysTestByPage',
         method: 'post',
         width: 'auto',
         pagination: true,
@@ -48,8 +48,8 @@ function initDataTable() {
                 checkbox: true,
             },
             {
-                field: 'email',
-                title: '邮箱',
+                field: 'name',
+                title: '姓名',
                 align: 'center'
             },
             {
@@ -58,8 +58,13 @@ function initDataTable() {
                 align: 'center'
             },
             {
-                field: 'ewCoin',
-                title: '优币',
+                field: 'playStateDesc',
+                title: '开播状态',
+                align: 'center'
+            },
+            {
+                field: 'playTime',
+                title: '开播时间',
                 align: 'center'
             },
             {
@@ -127,7 +132,7 @@ function batchDeleteInit() {
         AlertUtil.confirm({
             yes: function (index, layer) {
                 let option = {
-                    url: Constants.SERVER_URL + "/sysUser/deleteBatchSysUserByIds",
+                    url: Constants.SERVER_URL + "/sysTest/deleteBatchSysTestByIds",
                     data: {'ids': ids}
                 };
                 CommonUtil.commonSaveAjax(option, undefined, "#dataTable");
@@ -145,7 +150,7 @@ function bindOperateClickEvent() {
         if (isValidator) {
             let json = CommonUtil.serializeObject(".add-form");
             let option = {
-                url: Constants.SERVER_URL + "/sysUser/addSysUser",
+                url: Constants.SERVER_URL + "/sysTest/addSysTest",
                 data: json,
             };
             CommonUtil.commonSaveAjax(option, "#addModal", "#dataTable");
@@ -160,7 +165,7 @@ function bindOperateClickEvent() {
             let json = CommonUtil.serializeObject(".update-form");
             json.id = currentOperRowObj.id;
             let option = {
-                url: Constants.SERVER_URL + "/sysUser/updateSysUserById",
+                url: Constants.SERVER_URL + "/sysTest/updateSysTestById",
                 data: json,
             };
             CommonUtil.commonSaveAjax(option, "#updateModal", "#dataTable");
@@ -215,18 +220,12 @@ function bindFormValidate() {
 
     //修改表单
     $(".update-form").bootstrapValidator({
+        excluded:[":disabled"],
         fields: {
-            email: {
+            name: {
                 validators: {
                     notEmpty: {
-                        message: '请输入邮箱！'
-                    }
-                }
-            },
-            password: {
-                validators: {
-                    notEmpty: {
-                        message: '请输入密码！'
+                        message: '请输入姓名！'
                     }
                 }
             },
@@ -237,10 +236,24 @@ function bindFormValidate() {
                     }
                 }
             },
-            ewCoin: {
+            playState: {
                 validators: {
                     notEmpty: {
-                        message: '请输入优币！'
+                        message: '请输入开播状态！'
+                    }
+                }
+            },
+            playTime: {
+                validators: {
+                    notEmpty: {
+                        message: '请输入开播时间！'
+                    }
+                }
+            },
+            aboutFile: {
+                validators: {
+                    notEmpty: {
+                        message: '请输入相关附件！'
                     }
                 }
             }
@@ -268,13 +281,13 @@ function bindModalEvent() {
 
     //修改模态框open事件
     $("#updateModal").on('show.bs.modal', function () {
+        updateModalInit();
         let option = {
-            url: Constants.SERVER_URL + "/sysUser/getSysUserById",
+            url: Constants.SERVER_URL + "/sysTest/getSysTestById",
             data: {id: currentOperRowObj.id},
         };
         CommonUtil.commonAjax(option, function (response) {
-            let {data} = response;
-            FormUtil.initForm('.update-form', data)
+            FormUtil.initForm('.update-form', response)
         });
     });
 
@@ -286,7 +299,7 @@ function bindModalEvent() {
     //查看详情模态框open事件
     $("#viewModal").on('show.bs.modal', function () {
         let option = {
-            url: Constants.SERVER_URL + "/sysUser/getSysUserById",
+            url: Constants.SERVER_URL + "/sysTest/getSysTestById",
             data: {id: currentOperRowObj.id},
         };
         CommonUtil.commonAjax(option, function (response) {
@@ -383,6 +396,27 @@ function addModalInit() {
         let laydate = layui.laydate;
         laydate.render({
             elem: '.add-play-time',
+            value:new Date()
+        });
+    });
+}
+
+//修改模态框初始化Event
+function updateModalInit() {
+    //初始化开播状态下拉框
+    let options ={
+        url:Constants.SERVER_URL+"/sysDicItem/getSysDicItemByParams",
+        data:{dicId:"4783fd16d2bc4015be3f35e60f970c87"}
+    };
+    CommonUtil.commonAjax(options,function (response) {
+        FormUtil.initDropSelect('.update-play-state',response,{value:'dicItemCode',text:'dicItemName'});
+    });
+
+    //初始化开播时间日期控件
+    layui.use('laydate', function() {
+        let laydate = layui.laydate;
+        laydate.render({
+            elem: '.update-play-time',
             value:new Date()
         });
     });
