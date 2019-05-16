@@ -3,20 +3,16 @@ let currentOperRowObj = null;
 $(function () {
     ComponentUtil.loadSystemCommonHtml();
     initDataTable();
-    addModalInit();
+    addModalEvent();
     batchDeleteInit();
     bindOperateClickEvent();
     bindFormValidate();
     bindModalEvent();
     bindSearchEvent();
+    initSearchSelectDrop();
+    initAddSelectDrop();
+    initUpdateSelectDrop();
 
-    let options ={
-      url:Constants.SERVER_URL+"/sysDicItem/getSysDicItemByParams",
-      data:{dicId:"4783fd16d2bc4015be3f35e60f970c87"}
-    };
-    CommonUtil.commonAjax(options,function (response) {
-        FormUtil.initDropSelect('.chosen-select',response,{value:'dicItemCode',text:'dicItemName'});
-    });
 });
 
 
@@ -107,8 +103,8 @@ function operateFormatter(value, row, index) {
 }
 
 
-//添加模态框初始化
-function addModalInit() {
+//添加模态框Event
+function addModalEvent() {
     $("#addBtn").click(function () {
         $("#addModal").modal();
     });
@@ -252,6 +248,12 @@ function bindFormValidate() {
 //绑定所有的模态框event
 function bindModalEvent() {
 
+    //添加模态框open事件
+    $("#addModal").on('show.bs.modal', function () {
+        addModalInit();
+    });
+
+
     //添加模态框close事件
     $("#addModal").on('hide.bs.modal', function () {
         $(".add-form")[0].reset();
@@ -291,6 +293,15 @@ function bindModalEvent() {
 //绑定搜索表单对应的事件
 function bindSearchEvent() {
 
+    layui.use('laydate', function() {
+        let laydate = layui.laydate;
+        laydate.render({
+            elem: '#searchPlayTime',
+            value:new Date()
+        });
+    });
+
+
     //搜索button的click
     $("#searchBtn").click(function () {
         $('#dataTable').bootstrapTable("refreshOptions", {
@@ -310,6 +321,51 @@ function bindSearchEvent() {
     //重置搜索表单的click
     $("#resetBtn").click(function () {
         $(".searchForm")[0].reset();
+        $(".search-play-state").val("").trigger("chosen:updated");
         $("#dataTable").bootstrapTable('refresh');
+    });
+}
+
+//初始化搜索表单下拉
+function initSearchSelectDrop() {
+    let options ={
+        url:Constants.SERVER_URL+"/sysDicItem/getSysDicItemByParams",
+        data:{dicId:"4783fd16d2bc4015be3f35e60f970c87"}
+    };
+    CommonUtil.commonAjax(options,function (response) {
+        FormUtil.initDropSelect('.search-play-state',response,{value:'dicItemCode',text:'dicItemName'});
+    });
+}
+
+//初始化添加表单下拉
+function initAddSelectDrop() {
+    let options ={
+        url:Constants.SERVER_URL+"/sysDicItem/getSysDicItemByParams",
+        data:{dicId:"4783fd16d2bc4015be3f35e60f970c87"}
+    };
+    CommonUtil.commonAjax(options,function (response) {
+        FormUtil.initDropSelect('.search-play-state',response,{value:'dicItemCode',text:'dicItemName'});
+    });
+}
+
+//初始化修改表单下拉
+function initUpdateSelectDrop(){
+    let options ={
+        url:Constants.SERVER_URL+"/sysDicItem/getSysDicItemByParams",
+        data:{dicId:"4783fd16d2bc4015be3f35e60f970c87"}
+    };
+    CommonUtil.commonAjax(options,function (response) {
+        FormUtil.initDropSelect('.search-play-state',response,{value:'dicItemCode',text:'dicItemName'});
+    });
+}
+
+//添加模态框初始化Event
+function addModalInit() {
+    layui.use('laydate', function() {
+        let laydate = layui.laydate;
+        laydate.render({
+            elem: '#playTime',
+            value:new Date()
+        });
     });
 }
