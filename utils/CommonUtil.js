@@ -28,7 +28,7 @@ let CommonUtil = {
                         content: resultMsg
                     })
                 } else if (resultCode === Constants.RESPONSE_SUCCESS_CODE) {
-                    callback(response);
+                    callback(response.data);
                 }
             },
             error: function () {

@@ -35,4 +35,25 @@ let FormUtil = {
             }
         });
     },
+    /**
+     * 初始化下拉框
+     * @param ele      对应的DOM元素
+     * @param json     数据
+     * @param options
+     *        options.value:下拉框的值
+     *        options.text:下拉框的显示文本
+     *        options.change:下拉框的change事件
+     */
+    initDropSelect:function (ele, json,options) {
+        let html = `<option value=""></option>`;
+        for (let item of json) {
+            let temp = `<option value=${item[options.value]}>${item[options.text]}</option>`;
+            html+=temp;
+        }
+        $(ele).html(html);
+        $(ele).chosen({no_results_text: "未找到匹配项"});
+        if(options.change){
+            $('ele').on('change', options.change);
+        }
+    }
 };

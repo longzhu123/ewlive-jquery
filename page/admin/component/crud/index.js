@@ -9,6 +9,14 @@ $(function () {
     bindFormValidate();
     bindModalEvent();
     bindSearchEvent();
+
+    let options ={
+      url:Constants.SERVER_URL+"/sysDicItem/getSysDicItemByParams",
+      data:{dicId:"4783fd16d2bc4015be3f35e60f970c87"}
+    };
+    CommonUtil.commonAjax(options,function (response) {
+        FormUtil.initDropSelect('.chosen-select',response,{value:'dicItemCode',text:'dicItemName'});
+    });
 });
 
 

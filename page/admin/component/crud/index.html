@@ -7,6 +7,7 @@
     <link href="../../../../plugins/bootstrap/bootstrap-3.3.7/css/bootstrap.css" rel="stylesheet">
     <link href="../../../../plugins/bootstrap/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
     <link href="../../../../plugins/bootstrap/bootstrap-validator/css/bootstrapValidator.css" rel="stylesheet">
+    <link href="../../../../plugins/bootstrap/bootstrap-chosen/css/bootstrap-chosen.css" rel="stylesheet">
     <link href="../../../../font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="../../../../plugins/animate/animate.css" rel="stylesheet">
     <link href="../../../../plugins/layui/css/layui-v2.2.5.css" rel="stylesheet">
@@ -37,8 +38,8 @@
                         <form class="form-horizontal searchForm">
                             <div class="form-group">
                                 <div class="input-group">
-                                    <span class="input-group-addon">邮箱</span>
-                                    <input class="form-control" name="email" type="text">
+                                    <span class="input-group-addon">姓名</span>
+                                    <input class="form-control" name="name" type="text">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -47,8 +48,22 @@
                                     <input class="form-control" name="nickName" type="text">
                                 </div>
                             </div>
-
                             <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon">开播状态</span>
+                                    <select data-placeholder="请选择开播状态" name='playState' class="chosen-select">
+                                        <option value=""></option>
+                                        <option value="United States">United States</option>
+                                        <option value="United Kingdom">United Kingdom</option>
+                                        <option value="Afghanistan">Afghanistan</option>
+                                        <option value="Albania">Albania</option>
+                                        <option value="Algeria">Algeria</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group search-opearte-btn-grp">
                                 <div class="input-group">
                                     <button type="button" class="btn btn-outline btn-primary" id="searchBtn">
                                         <i class="fa fa-search"></i>
@@ -229,6 +244,7 @@
 <script src="../../../../plugins/bootstrap/bootstrap-validator/js/bootstrapValidator.js"></script>
 <script src="../../../../plugins/bootstrap/bootstrap-table/bootstrap-table.min.js"></script>
 <script src="../../../../plugins/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+<script src="../../../../plugins/bootstrap/bootstrap-chosen/js/chosen.jquery.js"></script>
 <script src="../../../../plugins/layui/layui-v2.2.5.js"></script>
 
 <!-- Custom -->
