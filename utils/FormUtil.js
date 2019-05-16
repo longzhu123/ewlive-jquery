@@ -50,6 +50,7 @@ let FormUtil = {
             let temp = `<option value=${item[options.value]}>${item[options.text]}</option>`;
             html+=temp;
         }
+        $(ele).empty();
         $(ele).html(html);
         $(ele).chosen({no_results_text: "未找到匹配项"});
         if(options.change){

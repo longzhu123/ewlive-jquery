@@ -12,7 +12,6 @@ $(function () {
     initSearchSelectDrop();
     initAddSelectDrop();
     initUpdateSelectDrop();
-
 });
 
 
@@ -176,17 +175,10 @@ function bindFormValidate() {
     //添加表单
     $(".add-form").bootstrapValidator({
         fields: {
-            email: {
+            name: {
                 validators: {
                     notEmpty: {
-                        message: '请输入邮箱！'
-                    }
-                }
-            },
-            password: {
-                validators: {
-                    notEmpty: {
-                        message: '请输入密码！'
+                        message: '请输入姓名！'
                     }
                 }
             },
@@ -197,10 +189,24 @@ function bindFormValidate() {
                     }
                 }
             },
-            ewCoin: {
+            playState: {
                 validators: {
                     notEmpty: {
-                        message: '请输入优币！'
+                        message: '请输入开播状态！'
+                    }
+                }
+            },
+            playTime: {
+                validators: {
+                    notEmpty: {
+                        message: '请输入开播时间！'
+                    }
+                }
+            },
+            aboutFile: {
+                validators: {
+                    notEmpty: {
+                        message: '请输入相关附件！'
                     }
                 }
             }
@@ -257,6 +263,7 @@ function bindModalEvent() {
     //添加模态框close事件
     $("#addModal").on('hide.bs.modal', function () {
         $(".add-form")[0].reset();
+        $(".add-play-state").val("").trigger("chosen:updated");
         $(".add-form").data('bootstrapValidator').resetForm();
     });
 
@@ -361,10 +368,22 @@ function initUpdateSelectDrop(){
 
 //添加模态框初始化Event
 function addModalInit() {
+
+    //初始化开播状态下拉框
+    let options ={
+        url:Constants.SERVER_URL+"/sysDicItem/getSysDicItemByParams",
+        data:{dicId:"4783fd16d2bc4015be3f35e60f970c87"}
+    };
+    CommonUtil.commonAjax(options,function (response) {
+        FormUtil.initDropSelect('.add-play-state',response,{value:'dicItemCode',text:'dicItemName'});
+    });
+
+
+    //初始化开播时间日期控件
     layui.use('laydate', function() {
         let laydate = layui.laydate;
         laydate.render({
-            elem: '#playTime',
+            elem: '#addPlayTime',
             value:new Date()
         });
     });
