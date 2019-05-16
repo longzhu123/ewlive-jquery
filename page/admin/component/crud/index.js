@@ -303,8 +303,7 @@ function bindModalEvent() {
             data: {id: currentOperRowObj.id},
         };
         CommonUtil.commonAjax(option, function (response) {
-            let {data} = response;
-            FormUtil.initViewDetail('.view-form', data)
+            FormUtil.initViewDetail('.view-form', response)
         });
     });
 }
