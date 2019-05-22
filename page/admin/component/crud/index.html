@@ -8,6 +8,9 @@
     <link href="../../../../plugins/bootstrap/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
     <link href="../../../../plugins/bootstrap/bootstrap-validator/css/bootstrapValidator.css" rel="stylesheet">
     <link href="../../../../plugins/bootstrap/bootstrap-chosen/css/bootstrap-chosen.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../plugins/bootstrap/bootstrap-fileinput/css/fileinput.min.css">
+    <link rel="stylesheet" href="../../../../plugins/bootstrap/bootstrap-fileinput/css/fileinput.min.css">
+
     <link href="../../../../font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="../../../../plugins/animate/animate.css" rel="stylesheet">
     <link href="../../../../plugins/layui/css/layui-v2.2.5.css" rel="stylesheet">
@@ -144,7 +147,8 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label required">相关附件:</label>
                         <div class="col-sm-8">
-                            <input class="form-control" name="aboutFile" placeholder="请输入相关附件"/>
+                            <input  class="form-control" id="add-about-file" name="files" type="file" multiple placeholder="请输入相关附件"/>
+                            <input class="form-control" name="aboutFile" type="hidden"/>
                         </div>
                     </div>
                 </form>
@@ -262,6 +266,8 @@
 <script src="../../../../plugins/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script src="../../../../plugins/bootstrap/bootstrap-chosen/js/chosen.jquery.js"></script>
 <script src="../../../../plugins/layui/layui-v2.2.5.js"></script>
+<script src="../../../../plugins/bootstrap/bootstrap-fileinput/js/fileinput.min.js"></script>
+<script src="../../../../plugins/bootstrap/bootstrap-fileinput/js/locales/zh.js"> </script>
 
 <!-- Custom -->
 <script src="../../../../constants/index.js"></script>

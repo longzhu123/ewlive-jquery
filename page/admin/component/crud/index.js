@@ -398,6 +398,23 @@ function addModalInit() {
             value:new Date()
         });
     });
+
+
+    $("#add-about-file").fileinput({
+        language:'zh',
+        uploadUrl:"http://localhost/sysFileInfo/addSysFileInfo",
+        showUpload : true,
+        showRemove : false,
+        showCaption : true,
+        showPreview : true,
+        dropZoneEnabled : false,
+        uploadExtraData:function(){//向后台传递参数
+            let data={
+                'token':'b4483dd22b6d4e35bafbb7157950baf41111'
+            };
+            return data;
+        }
+    });
 }
 
 //修改模态框初始化Event
