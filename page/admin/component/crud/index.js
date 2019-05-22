@@ -143,10 +143,12 @@ function batchDeleteInit() {
 
 //绑定业务操作按钮click事件
 function bindOperateClickEvent() {
-    console.log($('#add-about-file')[0].files.length);
 
     $(".add-save-btn").click(function () {
-        console.log($('#add-about-file')[0].files.length);
+
+        //再次校验文件类型表单(Plugin Bug)
+        ValidateUtil.commonFileValidate('.add-form',['files']);
+
         let isValidator = ValidateUtil.commonValidate(".add-form");
         if (isValidator) {
             let json = CommonUtil.serializeObject(".add-form");
@@ -161,6 +163,10 @@ function bindOperateClickEvent() {
 
     //修改保存click
     $(".update-save-btn").click(function () {
+
+        //再次校验文件类型表单(Plugin Bug)
+        ValidateUtil.commonFileValidate('.update-form',['files']);
+
         let isValidator = ValidateUtil.commonValidate(".update-form");
         if (isValidator) {
             let json = CommonUtil.serializeObject(".update-form");
@@ -260,7 +266,7 @@ function bindFormValidate() {
                     }
                 }
             },
-            aboutFile: {
+            files: {
                 validators: {
                     notEmpty: {
                         message: '请输入相关附件！'
@@ -422,14 +428,18 @@ function addModalInit() {
     $("#add-about-file").fileinput({
         language:'zh',
         uploadUrl:"http://localhost/sysFileInfo/addSysFileInfo",
+        layoutTemplates:{
+            actionUpload: ''
+        },
         showUpload : false,
         showRemove : false,
         showCaption : true,
+        showClose: false,
         showPreview : true,
         dropZoneEnabled : false,
         uploadExtraData:function(){//向后台传递参数
             let data={
-                'token':'b4483dd22b6d4e35bafbb7157950baf41111'
+                'token':localStorage.getItem('token')
             };
             return data;
         }
@@ -455,5 +465,26 @@ function updateModalInit() {
             elem: '.update-play-time',
             value:new Date()
         });
+    });
+
+
+    $("#update-about-file").fileinput({
+        language:'zh',
+        uploadUrl:"http://localhost/sysFileInfo/addSysFileInfo",
+        layoutTemplates:{
+            actionUpload: ''
+        },
+        showUpload : false,
+        showClose: false,
+        showRemove : false,
+        showCaption : true,
+        showPreview : true,
+        dropZoneEnabled : false,
+        uploadExtraData:function(){//向后台传递参数
+            let data={
+                'token':localStorage.getItem('token')
+            };
+            return data;
+        }
     });
 }
