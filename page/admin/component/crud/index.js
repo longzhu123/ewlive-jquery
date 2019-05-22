@@ -157,7 +157,6 @@ function bindOperateClickEvent() {
                 data: json,
             };
             CommonUtil.commonSaveAjax(option, "#addModal", "#dataTable");
-
         }
     });
 
