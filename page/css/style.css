@@ -9836,7 +9836,6 @@ body.md-skin {
     margin-right: 100px !important;
 }
 
-
-.btn.btn-default.btn-secondary.fileinput-upload.fileinput-upload-button{
+.kv-file-upload.btn.btn-sm.btn-kv.btn-default.btn-outline-secondary{
     display: none;
 }
