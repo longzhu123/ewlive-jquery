@@ -218,6 +218,15 @@ function bindFormValidate() {
         }
     });
 
+    //LayDate插件和BootstrapValidator冲突的解决
+    $(".add-play-time").blur(function () {
+       setTimeout(function () {
+           $('.add-form').data('bootstrapValidator')
+                        .updateStatus('playTime', 'NOT_VALIDATED',null)
+                        .validateField('playTime');
+       },200);
+    });
+
     //修改表单
     $(".update-form").bootstrapValidator({
         excluded:[":disabled"],
@@ -259,6 +268,15 @@ function bindFormValidate() {
             }
 
         }
+    });
+
+    //LayDate插件和BootstrapValidator冲突的解决
+    $(".update-play-time").blur(function () {
+        setTimeout(function () {
+            $('.update-form').data('bootstrapValidator')
+                .updateStatus('playTime', 'NOT_VALIDATED',null)
+                .validateField('playTime');
+        },200);
     });
 }
 
