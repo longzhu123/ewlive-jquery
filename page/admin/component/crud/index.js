@@ -147,7 +147,7 @@ function bindOperateClickEvent() {
     $(".add-save-btn").click(function () {
 
         //再次校验文件类型表单(Plugin Bug)
-        ValidateUtil.commonFileValidate('.add-form',['files']);
+        ValidateUtil.commonFileValidate('.add-form', ['files']);
 
         let isValidator = ValidateUtil.commonValidate(".add-form");
         if (isValidator) {
@@ -164,7 +164,7 @@ function bindOperateClickEvent() {
     $(".update-save-btn").click(function () {
 
         //再次校验文件类型表单(Plugin Bug)
-        ValidateUtil.commonFileValidate('.update-form',['files']);
+        ValidateUtil.commonFileValidate('.update-form', ['files']);
 
         let isValidator = ValidateUtil.commonValidate(".update-form");
         if (isValidator) {
@@ -183,7 +183,7 @@ function bindOperateClickEvent() {
 function bindFormValidate() {
     //添加表单
     $(".add-form").bootstrapValidator({
-        excluded:[":disabled"],
+        excluded: [":disabled"],
         fields: {
             name: {
                 validators: {
@@ -226,16 +226,16 @@ function bindFormValidate() {
 
     //LayDate插件和BootstrapValidator冲突的解决
     $(".add-play-time").blur(function () {
-       setTimeout(function () {
-           $('.add-form').data('bootstrapValidator')
-                        .updateStatus('playTime', 'NOT_VALIDATED',null)
-                        .validateField('playTime');
-       },200);
+        setTimeout(function () {
+            $('.add-form').data('bootstrapValidator')
+                .updateStatus('playTime', 'NOT_VALIDATED', null)
+                .validateField('playTime');
+        }, 200);
     });
 
     //修改表单
     $(".update-form").bootstrapValidator({
-        excluded:[":disabled"],
+        excluded: [":disabled"],
         fields: {
             name: {
                 validators: {
@@ -280,9 +280,9 @@ function bindFormValidate() {
     $(".update-play-time").blur(function () {
         setTimeout(function () {
             $('.update-form').data('bootstrapValidator')
-                .updateStatus('playTime', 'NOT_VALIDATED',null)
+                .updateStatus('playTime', 'NOT_VALIDATED', null)
                 .validateField('playTime');
-        },200);
+        }, 200);
     });
 }
 
@@ -335,11 +335,11 @@ function bindModalEvent() {
 //绑定搜索表单对应的事件
 function bindSearchEvent() {
 
-    layui.use('laydate', function() {
+    layui.use('laydate', function () {
         let laydate = layui.laydate;
         laydate.render({
             elem: '#searchPlayTime',
-            value:new Date()
+            value: new Date()
         });
     });
 
@@ -347,13 +347,13 @@ function bindSearchEvent() {
     //搜索button的click
     $("#searchBtn").click(function () {
         $('#dataTable').bootstrapTable("refreshOptions", {
-            queryParams : function(params) {
+            queryParams: function (params) {
                 let searchJson = CommonUtil.serializeObject(".searchForm");
                 let searchParams = Object.assign({
                     size: params.limit,
                     current: params.offset / params.limit + 1,
                     token: localStorage.getItem('token')
-                },searchJson);
+                }, searchJson);
                 return JSON.stringify(searchParams);
             }
         });
@@ -370,34 +370,34 @@ function bindSearchEvent() {
 
 //初始化搜索表单下拉
 function initSearchSelectDrop() {
-    let options ={
-        url:Constants.SERVER_URL+"/sysDicItem/getSysDicItemByParams",
-        data:{dicId:"4783fd16d2bc4015be3f35e60f970c87"}
+    let options = {
+        url: Constants.SERVER_URL + "/sysDicItem/getSysDicItemByParams",
+        data: {dicId: "4783fd16d2bc4015be3f35e60f970c87"}
     };
-    CommonUtil.commonAjax(options,function (response) {
-        FormUtil.initDropSelect('.search-play-state',response,{value:'dicItemCode',text:'dicItemName'});
+    CommonUtil.commonAjax(options, function (response) {
+        FormUtil.initDropSelect('.search-play-state', response, {value: 'dicItemCode', text: 'dicItemName'});
     });
 }
 
 //初始化添加表单下拉
 function initAddSelectDrop() {
-    let options ={
-        url:Constants.SERVER_URL+"/sysDicItem/getSysDicItemByParams",
-        data:{dicId:"4783fd16d2bc4015be3f35e60f970c87"}
+    let options = {
+        url: Constants.SERVER_URL + "/sysDicItem/getSysDicItemByParams",
+        data: {dicId: "4783fd16d2bc4015be3f35e60f970c87"}
     };
-    CommonUtil.commonAjax(options,function (response) {
-        FormUtil.initDropSelect('.search-play-state',response,{value:'dicItemCode',text:'dicItemName'});
+    CommonUtil.commonAjax(options, function (response) {
+        FormUtil.initDropSelect('.search-play-state', response, {value: 'dicItemCode', text: 'dicItemName'});
     });
 }
 
 //初始化修改表单下拉
-function initUpdateSelectDrop(){
-    let options ={
-        url:Constants.SERVER_URL+"/sysDicItem/getSysDicItemByParams",
-        data:{dicId:"4783fd16d2bc4015be3f35e60f970c87"}
+function initUpdateSelectDrop() {
+    let options = {
+        url: Constants.SERVER_URL + "/sysDicItem/getSysDicItemByParams",
+        data: {dicId: "4783fd16d2bc4015be3f35e60f970c87"}
     };
-    CommonUtil.commonAjax(options,function (response) {
-        FormUtil.initDropSelect('.search-play-state',response,{value:'dicItemCode',text:'dicItemName'});
+    CommonUtil.commonAjax(options, function (response) {
+        FormUtil.initDropSelect('.search-play-state', response, {value: 'dicItemCode', text: 'dicItemName'});
     });
 }
 
@@ -405,83 +405,90 @@ function initUpdateSelectDrop(){
 function addModalInit() {
 
     //初始化开播状态下拉框
-    let options ={
-        url:Constants.SERVER_URL+"/sysDicItem/getSysDicItemByParams",
-        data:{dicId:"4783fd16d2bc4015be3f35e60f970c87"}
+    let options = {
+        url: Constants.SERVER_URL + "/sysDicItem/getSysDicItemByParams",
+        data: {dicId: "4783fd16d2bc4015be3f35e60f970c87"}
     };
-    CommonUtil.commonAjax(options,function (response) {
-        FormUtil.initDropSelect('.add-play-state',response,{value:'dicItemCode',text:'dicItemName'});
+    CommonUtil.commonAjax(options, function (response) {
+        FormUtil.initDropSelect('.add-play-state', response, {value: 'dicItemCode', text: 'dicItemName'});
     });
 
 
     //初始化开播时间日期控件
-    layui.use('laydate', function() {
+    layui.use('laydate', function () {
         let laydate = layui.laydate;
         laydate.render({
             elem: '.add-play-time',
-            value:new Date()
+            value: new Date()
         });
     });
 
 
     $("#add-about-file").fileinput({
-        language:'zh',
-        uploadUrl:"http://localhost/sysFileInfo/addSysFileInfo",
-        layoutTemplates:{
+        language: 'zh',
+        uploadUrl: Constants.SERVER_URL + "/sysFileInfo/addSysFileInfo",
+        layoutTemplates: {
             actionUpload: ''
         },
-        showUpload : false,
-        showRemove : false,
-        showCaption : true,
+        showUpload: false,
+        showRemove: false,
+        showCaption: true,
         showClose: false,
-        showPreview : true,
-        dropZoneEnabled : false,
-        uploadExtraData:function(){//向后台传递参数
-            let data={
-                'token':localStorage.getItem('token')
+        showPreview: true,
+        dropZoneEnabled: false,
+        uploadExtraData: function () {//向后台传递参数
+            let data = {
+                'token': localStorage.getItem('token')
             };
             return data;
         }
-    });
+    }).on('filebatchselected', function (event, files) {//选中文件事件
+        $(this).fileinput("upload");
+    }).on("fileuploaded", function (event, d, previewId, index) {//上传成功事件
+        console.log(event);
+        console.log(d);
+        console.log(previewId);
+        console.log(index);
+    })
 
 }
 
 //修改模态框初始化Event
 function updateModalInit() {
     //初始化开播状态下拉框
-    let options ={
-        url:Constants.SERVER_URL+"/sysDicItem/getSysDicItemByParams",
-        data:{dicId:"4783fd16d2bc4015be3f35e60f970c87"}
+    let options = {
+        url: Constants.SERVER_URL + "/sysDicItem/getSysDicItemByParams",
+        data: {dicId: "4783fd16d2bc4015be3f35e60f970c87"}
     };
-    CommonUtil.commonAjax(options,function (response) {
-        FormUtil.initDropSelect('.update-play-state',response,{value:'dicItemCode',text:'dicItemName'});
+    CommonUtil.commonAjax(options, function (response) {
+        FormUtil.initDropSelect('.update-play-state', response, {value: 'dicItemCode', text: 'dicItemName'});
     });
 
     //初始化开播时间日期控件
-    layui.use('laydate', function() {
+    layui.use('laydate', function () {
         let laydate = layui.laydate;
         laydate.render({
             elem: '.update-play-time',
-            value:new Date()
+            value: new Date()
         });
     });
 
 
     $("#update-about-file").fileinput({
-        language:'zh',
-        uploadUrl:"http://localhost/sysFileInfo/addSysFileInfo",
-        layoutTemplates:{
+        language: 'zh',
+        uploadUrl: "http://localhost/sysFileInfo/addSysFileInfo",
+        layoutTemplates: {
             actionUpload: ''
         },
-        showUpload : false,
+        showUpload: false,
         showClose: false,
-        showRemove : false,
-        showCaption : true,
-        showPreview : true,
-        dropZoneEnabled : false,
-        uploadExtraData:function(){//向后台传递参数
-            let data={
-                'token':localStorage.getItem('token')
+        showRemove: false,
+        showCaption: true,
+        showPreview: true,
+        dropZoneEnabled: false,
+        uploadExtraData: function () {//向后台传递参数
+            let data = {
+                'token': localStorage.getItem('token')
             };
             return data;
         }
