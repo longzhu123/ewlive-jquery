@@ -4601,7 +4601,7 @@ table.table-mail tr td {
 }
 
 .progress-bar {
-    background-color: #1ab394;
+    background-color: #1ab394 !important;
 }
 
 .progress-small,
@@ -9834,4 +9834,9 @@ body.md-skin {
 
 .drop-form-group{
     margin-right: 100px !important;
+}
+
+
+.btn.btn-default.btn-secondary.fileinput-upload.fileinput-upload-button{
+    display: none;
 }

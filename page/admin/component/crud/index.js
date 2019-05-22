@@ -421,7 +421,7 @@ function addModalInit() {
     $("#add-about-file").fileinput({
         language:'zh',
         uploadUrl:"http://localhost/sysFileInfo/addSysFileInfo",
-        showUpload : true,
+        showUpload : false,
         showRemove : false,
         showCaption : true,
         showPreview : true,
@@ -433,6 +433,7 @@ function addModalInit() {
             return data;
         }
     });
+
 }
 
 //修改模态框初始化Event
