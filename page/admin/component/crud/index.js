@@ -143,9 +143,10 @@ function batchDeleteInit() {
 
 //绑定业务操作按钮click事件
 function bindOperateClickEvent() {
+    console.log($('#add-about-file')[0].files.length);
 
-    //添加保存click
     $(".add-save-btn").click(function () {
+        console.log($('#add-about-file')[0].files.length);
         let isValidator = ValidateUtil.commonValidate(".add-form");
         if (isValidator) {
             let json = CommonUtil.serializeObject(".add-form");
@@ -207,7 +208,7 @@ function bindFormValidate() {
                     }
                 }
             },
-            aboutFile: {
+            files: {
                 validators: {
                     notEmpty: {
                         message: '请输入相关附件！'
