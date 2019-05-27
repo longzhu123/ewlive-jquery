@@ -145,10 +145,6 @@ function batchDeleteInit() {
 function bindOperateClickEvent() {
 
     $(".add-save-btn").click(function () {
-
-        //再次校验文件类型表单(Plugin Bug)
-        ValidateUtil.commonFileValidate('.add-form', ['files']);
-
         let isValidator = ValidateUtil.commonValidate(".add-form");
         if (isValidator) {
             let json = CommonUtil.serializeObject(".add-form");
@@ -164,7 +160,7 @@ function bindOperateClickEvent() {
     $(".update-save-btn").click(function () {
 
         //再次校验文件类型表单(Plugin Bug)
-        ValidateUtil.commonFileValidate('.update-form', ['files']);
+        // ValidateUtil.commonFileValidate('.update-form', ['files']);
 
         let isValidator = ValidateUtil.commonValidate(".update-form");
         if (isValidator) {
@@ -445,10 +441,10 @@ function addModalInit() {
     }).on('filebatchselected', function (event, files) {//选中文件事件
         $(this).fileinput("upload");
     }).on("fileuploaded", function (event, d, previewId, index) {//上传成功事件
-        console.log(event);
-        console.log(d);
-        console.log(previewId);
-        console.log(index);
+        let id = d.response.data.id+",";
+        let inputHidden = $(this).parents('.file-col').find("input[type='hidden']");
+        let hiddenIdsVal = inputHidden.val();
+        inputHidden.val(hiddenIdsVal+id);
     })
 
 }
