@@ -445,7 +445,11 @@ function addModalInit() {
         let inputHidden = $(this).parents('.file-col').find("input[type='hidden']");
         let hiddenIdsVal = inputHidden.val();
         inputHidden.val(hiddenIdsVal+id);
-    })
+        $('#' + previewId).prop('fileid', d.response.data.id);
+    }).on('filesuccessremove', function (event, previewId, extra) {
+        let delId = [$('#' + previewId).prop('fileid')];
+        CommonUtil.commonDelFile(delId);
+    });
 
 }
 

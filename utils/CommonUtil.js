@@ -58,6 +58,22 @@ let CommonUtil = {
             }
         });
     },
+    /**
+     * 通用的删除文件
+     * @param id  id编号
+     */
+    commonDelFile:function(ids){
+        let options = {
+          url: Constants.SERVER_URL+"/sysFileInfo/deleteBatchSysFileInfoByIds",
+          data:{"ids":ids}
+        };
+        this.commonAjax(options,function () {
+            AlertUtil.success({
+                title: '操作提示',
+                content: '删除成功'
+            });
+        })
+    },
     //序列化表单对象为json
     serializeObject: function (ele) {
         let o = {};
