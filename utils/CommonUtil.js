@@ -95,18 +95,18 @@ let CommonUtil = {
      * @param fileobj
      */
     downloadHandler: function (fileobj,id) {
-        let _this = this;
         if (!fileobj) {
             fileobj = $(this.options.showContainer);
         }
         let objs = $(fileobj).data('fileinput').$preview.find(".kv-preview-thumb .kv-file-down");
         objs.unbind("click");
         objs.on("click", function () {
-            let options = {
+            let option = {
                 url: Constants.SERVER_URL + "/sysFileInfo/downloadFile",
-                data: {"id":id}
+                data: {"id":id,"token":localStorage.getItem("token")}
             };
-            _this.commonAjax(options);
+            AuthUtil.validateToken();
+            window.location.href = `${option.url}?id=${option.data.id}&token=${option.data.token}`;
         });
     }
 };
