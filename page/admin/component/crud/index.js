@@ -424,8 +424,9 @@ function addModalInit() {
         language: 'zh',
         uploadUrl: Constants.SERVER_URL + "/sysFileInfo/addSysFileInfo",
         layoutTemplates: {
-            actionUpload: ''
+            actionUpload: '',
         },
+        otherActionButtons:'<button type="button" {dataKey} class="kv-file-down btn btn-sm btn-kv btn-default btn-outline-secondary" title="下载附件"><i class="fa fa-cloud-download"></i></button>',
         showUpload: false,
         showRemove: false,
         showCaption: true,
@@ -446,6 +447,7 @@ function addModalInit() {
         let hiddenIdsVal = inputHidden.val();
         inputHidden.val(hiddenIdsVal+id);
         $('#' + previewId).prop('fileid', d.response.data.id);
+        CommonUtil.downloadHandler(this,d.response.data.id);
     }).on('filesuccessremove', function (event, previewId, extra) {
         let delId = [$('#' + previewId).prop('fileid')];
         CommonUtil.commonDelFile(delId);

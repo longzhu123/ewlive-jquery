@@ -44,16 +44,16 @@ let CommonUtil = {
      * @param ele       隐藏模态框的DOM
      * @param tableEle  刷新表格的DOM
      */
-    commonSaveAjax: function (option,ele,tableEle) {
+    commonSaveAjax: function (option, ele, tableEle) {
         this.commonAjax(option, function (response) {
             AlertUtil.success({
                 title: '操作提示',
                 content: '保存成功'
             });
-            if(ele){
+            if (ele) {
                 $(ele).modal('hide');
             }
-            if(tableEle){
+            if (tableEle) {
                 $(tableEle).bootstrapTable('refresh');
             }
         });
@@ -62,12 +62,12 @@ let CommonUtil = {
      * 通用的删除文件
      * @param id  id编号
      */
-    commonDelFile:function(ids){
+    commonDelFile: function (ids) {
         let options = {
-          url: Constants.SERVER_URL+"/sysFileInfo/deleteBatchSysFileInfoByIds",
-          data:{"ids":ids}
+            url: Constants.SERVER_URL + "/sysFileInfo/deleteBatchSysFileInfoByIds",
+            data: {"ids": ids}
         };
-        this.commonAjax(options,function () {
+        this.commonAjax(options, function () {
             AlertUtil.success({
                 title: '操作提示',
                 content: '删除成功'
@@ -89,5 +89,24 @@ let CommonUtil = {
             }
         });
         return o;
+    },
+    /**
+     * 附件下载
+     * @param fileobj
+     */
+    downloadHandler: function (fileobj,id) {
+        let _this = this;
+        if (!fileobj) {
+            fileobj = $(this.options.showContainer);
+        }
+        let objs = $(fileobj).data('fileinput').$preview.find(".kv-preview-thumb .kv-file-down");
+        objs.unbind("click");
+        objs.on("click", function () {
+            let options = {
+                url: Constants.SERVER_URL + "/sysFileInfo/downloadFile",
+                data: {"id":id}
+            };
+            _this.commonAjax(options);
+        });
     }
 };
