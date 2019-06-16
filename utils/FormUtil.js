@@ -66,13 +66,14 @@ let FormUtil = {
                 data: {"id":fileResponse[i].id,"token":localStorage.getItem("token")}
             };
             initialPreview.push(fileResponse[i].name);
-            let config = {caption: fileResponse[i].name, filename: fileResponse[i].name, downloadUrl:  `${downLoadOption.url}?id=${downLoadOption.data.id}&token=${downLoadOption.data.token}`};
+            let config = {caption: fileResponse[i].name, filename: fileResponse[i].name, downloadUrl:  `${downLoadOption.url}?id=${downLoadOption.data.id}&token=${downLoadOption.data.token}`,key:downLoadOption.data.id};
             initialPreviewConfig.push(config);
         }
 
         $(ele).fileinput({
             language: 'zh',
             initialPreview:initialPreview,
+            initialPreviewConfig:initialPreviewConfig,
             layoutTemplates: {
                 actionDelete:''
             },
@@ -81,8 +82,10 @@ let FormUtil = {
             showCaption: true,
             showClose: false,
             showPreview: true,
-            initialPreviewConfig:initialPreviewConfig,
             dropZoneEnabled: false,
+            downloadIcon:'fa fa-cloud-download',
         });
+
+
     }
 };

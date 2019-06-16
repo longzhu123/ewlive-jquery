@@ -439,7 +439,7 @@ function addModalInit() {
         layoutTemplates: {
         },
         previewTemplates:'',
-        otherActionButtons:'<button type="button" {dataKey} class="hide kv-file-down btn btn-sm btn-kv btn-default btn-outline-secondary" title="下载附件"><i class="fa fa-cloud-download"></i></button>',
+        otherActionButtons:'<button type="button" {dataKey} class="hide kv-file-down btn btn-sm btn-kv btn-default btn-outline-secondary" title="下载"><i class="glyphicon glyphicon-download"></i></button>',
         showUpload: false,
         showRemove: false,
         showCaption: true,
@@ -464,7 +464,6 @@ function addModalInit() {
         $('#' + previewId).find(".file-thumbnail-footer .file-actions .file-footer-buttons .kv-file-down").removeClass('hide');
         $('#' + previewId).find(".file-thumbnail-footer .file-actions .file-footer-buttons .kv-file-zoom").removeClass('hide');
     }).on('filesuccessremove', function (event, previewId, extra) {
-        debugger;
         let delId = [$('#' + previewId).prop('fileid')];
         CommonUtil.commonDelFile(delId);
     });
