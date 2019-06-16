@@ -424,8 +424,9 @@ function addModalInit() {
         language: 'zh',
         uploadUrl: Constants.SERVER_URL + "/sysFileInfo/addSysFileInfo",
         layoutTemplates: {
-            actionUpload: '',
+            actionUpload: ''
         },
+        previewTemplates:'',
         otherActionButtons:'<button type="button" {dataKey} class="kv-file-down btn btn-sm btn-kv btn-default btn-outline-secondary" title="下载附件"><i class="fa fa-cloud-download"></i></button>',
         showUpload: false,
         showRemove: false,
