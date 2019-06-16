@@ -325,7 +325,18 @@ function bindModalEvent() {
             data: {id: currentOperRowObj.id},
         };
         CommonUtil.commonAjax(option, function (response) {
-            FormUtil.initViewDetail('.view-form', response)
+            FormUtil.initViewDetail('.view-form', response);
+
+            let aboutFileIds =  response["aboutFile"].split(',');
+            let fileOption = {
+                url: Constants.SERVER_URL + "/sysFileInfo/getSysFileInfoByIds",
+                data:{ids:aboutFileIds}
+            };
+            CommonUtil.commonAjax(fileOption, function (fileResponse) {
+                FormUtil.initFile('#view-about-file',fileResponse);
+            });
+
+
         });
     });
 }

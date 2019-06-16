@@ -56,5 +56,33 @@ let FormUtil = {
         if(options.change){
             $('ele').on('change', options.change);
         }
+    },
+    initFile:function (ele,fileResponse) {
+        let initialPreview = [];
+        let initialPreviewConfig = [];
+        for (let i = 0; i < fileResponse.length; i++) {
+            let downLoadOption = {
+                url: Constants.SERVER_URL + "/sysFileInfo/downloadFile",
+                data: {"id":fileResponse[i].id,"token":localStorage.getItem("token")}
+            };
+            initialPreview.push(fileResponse[i].name);
+            let config = {caption: fileResponse[i].name, filename: fileResponse[i].name, downloadUrl:  `${downLoadOption.url}?id=${downLoadOption.data.id}&token=${downLoadOption.data.token}`};
+            initialPreviewConfig.push(config);
+        }
+
+        $(ele).fileinput({
+            language: 'zh',
+            initialPreview:initialPreview,
+            layoutTemplates: {
+                actionDelete:''
+            },
+            showUpload: false,
+            showRemove: false,
+            showCaption: true,
+            showClose: false,
+            showPreview: true,
+            initialPreviewConfig:initialPreviewConfig,
+            dropZoneEnabled: false,
+        });
     }
 };
