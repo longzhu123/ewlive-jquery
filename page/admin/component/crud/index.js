@@ -145,7 +145,9 @@ function batchDeleteInit() {
 function bindOperateClickEvent() {
 
     $(".add-save-btn").click(function () {
+        ValidateUtil.commonFileValidate('.add-form',['aboutFile']);
         let isValidator = ValidateUtil.commonValidate(".add-form");
+
         if (isValidator) {
             let json = CommonUtil.serializeObject(".add-form");
             let option = {
@@ -160,7 +162,7 @@ function bindOperateClickEvent() {
     $(".update-save-btn").click(function () {
 
         //再次校验文件类型表单(Plugin Bug)
-        // ValidateUtil.commonFileValidate('.update-form', ['files']);
+        ValidateUtil.commonFileValidate('.update-form',['aboutFile']);
 
         let isValidator = ValidateUtil.commonValidate(".update-form");
         if (isValidator) {
@@ -209,7 +211,7 @@ function bindFormValidate() {
                     }
                 }
             },
-            files: {
+            aboutFile: {
                 validators: {
                     notEmpty: {
                         message: '请输入相关附件！'
