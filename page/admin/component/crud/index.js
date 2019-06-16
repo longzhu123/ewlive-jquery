@@ -424,10 +424,9 @@ function addModalInit() {
         language: 'zh',
         uploadUrl: Constants.SERVER_URL + "/sysFileInfo/addSysFileInfo",
         layoutTemplates: {
-            actionUpload: ''
         },
         previewTemplates:'',
-        otherActionButtons:'<button type="button" {dataKey} class="kv-file-down btn btn-sm btn-kv btn-default btn-outline-secondary" title="下载附件"><i class="fa fa-cloud-download"></i></button>',
+        otherActionButtons:'<button type="button" {dataKey} class="hide kv-file-down btn btn-sm btn-kv btn-default btn-outline-secondary" title="下载附件"><i class="fa fa-cloud-download"></i></button>',
         showUpload: false,
         showRemove: false,
         showCaption: true,
@@ -441,7 +440,7 @@ function addModalInit() {
             return data;
         }
     }).on('filebatchselected', function (event, files) {//选中文件事件
-        $(this).fileinput("upload");
+        //$(this).fileinput("upload");
     }).on("fileuploaded", function (event, d, previewId, index) {//上传成功事件
         let id = d.response.data.id+",";
         let inputHidden = $(this).parents('.file-col').find("input[type='hidden']");
@@ -449,7 +448,10 @@ function addModalInit() {
         inputHidden.val(hiddenIdsVal+id);
         $('#' + previewId).prop('fileid', d.response.data.id);
         CommonUtil.downloadHandler(this,d.response.data.id);
+        $('#' + previewId).find(".file-thumbnail-footer .file-actions .file-footer-buttons .kv-file-down").removeClass('hide');
+        $('#' + previewId).find(".file-thumbnail-footer .file-actions .file-footer-buttons .kv-file-zoom").removeClass('hide');
     }).on('filesuccessremove', function (event, previewId, extra) {
+        debugger;
         let delId = [$('#' + previewId).prop('fileid')];
         CommonUtil.commonDelFile(delId);
     });
